@@ -1,0 +1,238 @@
+body {
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.game-container {
+  text-align: center;
+  position: relative;
+  padding: 40px 0;
+}
+
+.game {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+}
+
+.title {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.glow {
+  text-shadow: 0 0 10px #fff, 0 0 20px #7dd3fc, 0 0 30px #3b82f6;
+  animation: glowPulse 3s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { text-shadow: 0 0 10px #fff, 0 0 20px #7dd3fc; }
+  to { text-shadow: 0 0 20px #fff, 0 0 40px #3b82f6; }
+}
+
+.game-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+/* Tabla de joc */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  font-size: 2.5rem;
+  border: none;
+  border-radius: 15px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.square:hover:not(:disabled) {
+  background-color: #e3f2fd;
+  transform: scale(1.05);
+}
+
+.square.filled {
+  animation: popSquare 0.25s ease;
+}
+
+@keyframes popSquare {
+  from { transform: scale(0.8); }
+  to { transform: scale(1); }
+}
+
+.status {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* Mutări în partea dreaptă */
+.game-info {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  min-width: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.game-info h3 {
+  text-align: center;
+  margin-top: 0;
+  color: #222;
+}
+
+.game-info ol {
+  padding-left: 10px;
+  margin: 0;
+}
+
+.move-btn {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  border: none;
+  color: white;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.25s ease;
+}
+
+.move-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #66a6ff, #89f7fe);
+}
+
+.move-btn.active {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  box-shadow: 0 0 15px rgba(255, 118, 136, 0.6);
+}
+
+.reset-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.reset-btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #ffd200, #f7971e);
+}
+
+/* Confetti & artificii */
+.celebration-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px 40px;
+  border-radius: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff4081;
+  box-shadow: 0 0 25px rgba(255, 64, 129, 0.6);
+  animation: fadeInUp 1s ease;
+  z-index: 100;
+}
+
+.fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 99;
+}
+
+.firework {
+  position: absolute;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 -40px 0 10px #ff4081, 20px -20px 0 5px #ffeb3b, -20px -20px 0 5px #03a9f4;
+  animation: explode 1.2s ease-out infinite;
+}
+
+.firework.f1 { left: 25%; animation-delay: 0s; }
+.firework.f2 { left: 50%; animation-delay: 0.4s; }
+.firework.f3 { left: 75%; animation-delay: 0.8s; }
+
+@keyframes explode {
+  0% { transform: translateY(0) scale(0.5); opacity: 1; }
+  80% { transform: translateY(-400px) scale(1.5); opacity: 1; }
+  100% { transform: translateY(-450px) scale(2); opacity: 0; }
+}
+
+/* Mesaj auto-reset */
+.auto-reset-msg {
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #444;
+  animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Responsivitate */
+@media (max-width: 800px) {
+  .game-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-info {
+    max-height: none;
+    width: 80%;
+  }
+}
